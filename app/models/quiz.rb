@@ -12,7 +12,7 @@ class Quiz < ApplicationRecord
 
     def first_level
       @poems.each do |poem|
-        if poem.context == self.question.downcase
+        if poem.context == Unicode::downcase(self.question)
           self.answer = poem.title
         end
       end
