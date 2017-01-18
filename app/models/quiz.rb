@@ -23,7 +23,7 @@ class Quiz < ApplicationRecord
       parameters = {
           answer:  self.answer,
           token:   '3ed02bb8ad74f3afa33b21a3de7929f4',
-          task_id: self.user_id
+          task_id: self.id
         }
         Net::HTTP.post_form(uri, parameters)
     end
