@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Poems</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Context</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @poems.each do |poem| %>
+      <tr>
+        <td><%= poem.title %></td>
+        <td><%= poem.context %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
