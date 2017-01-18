@@ -7,21 +7,21 @@ class Quiz < ApplicationRecord
       when 1
        first_level
       end
-      answer_sender
     end
 
     def first_level
       @poems.each do |poem|
         if poem.context == Unicode::downcase(self.question)
           self.answer = poem.title
+          answer_sender(self.answer)
         end
       end
     end
 
-    def answer_sender
+    def answer_sender(answer)
       uri = URI("http://pushkin.rubyroidlabs.com/quiz")
       parameters = {
-          answer:  self.answer,
+          answer:  answer,
           token:   '3ed02bb8ad74f3afa33b21a3de7929f4',
           task_id: self.id
         }
