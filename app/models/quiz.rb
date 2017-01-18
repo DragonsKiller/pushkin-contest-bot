@@ -1,6 +1,6 @@
 class Quiz < ApplicationRecord
     before_create :level_chooser
-
+    API = '3ed02bb8ad74f3afa33b21a3de7929f4'
     def level_chooser
       @poems = Poem.all
       case self.level
@@ -12,7 +12,7 @@ class Quiz < ApplicationRecord
     def first_level
       @poems.each do |poem|
         if poem.context == Unicode::downcase(self.question)
-          self.answer = poem.title
+          self.answer = Unicode::upcase(poem.title[0]) + poem.title.delete(poem.title[0])
           answer_sender(self.answer)
         end
       end
@@ -22,7 +22,7 @@ class Quiz < ApplicationRecord
       uri = URI("http://pushkin.rubyroidlabs.com/quiz")
       parameters = {
           answer:  answer,
-          token:   '3ed02bb8ad74f3afa33b21a3de7929f4',
+          token:   API,
           task_id: self.id
         }
         Net::HTTP.post_form(uri, parameters)
