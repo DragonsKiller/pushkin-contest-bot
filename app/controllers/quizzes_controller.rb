@@ -1,4 +1,6 @@
 class QuizzesController < ApplicationController
+  protect_from_forgery with: :exception
+  skip_before_action :verify_authenticity_token
   before_action :set_quiz, only: [:show, :edit, :update, :destroy]
 
   # GET /quizzes
@@ -24,17 +26,9 @@ class QuizzesController < ApplicationController
   # POST /quizzes
   # POST /quizzes.json
   def create
+    @quiz = Quiz.new
     @quiz = Quiz.new(quiz_params)
-
-    respond_to do |format|
-      if @quiz.save
-        format.html { redirect_to @quiz, notice: 'Quiz was successfully created.' }
-        format.json { render :show, status: :created, location: @quiz }
-      else
-        format.html { render :new }
-        format.json { render json: @quiz.errors, status: :unprocessable_entity }
-      end
-    end
+    @quiz.save
   end
 
   # PATCH/PUT /quizzes/1
@@ -68,6 +62,7 @@ class QuizzesController < ApplicationController
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def quiz_params
-      params.slice(:question, :user_id, :level)
+      params.permit(:question, :id, :level)
     end
+
 end

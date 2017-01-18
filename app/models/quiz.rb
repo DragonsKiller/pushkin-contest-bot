@@ -5,14 +5,14 @@ class Quiz < ApplicationRecord
       @poems = Poem.all
       case self.level
       when 1
-        first_level
+       first_level
       end
       answer_sender
     end
 
     def first_level
       @poems.each do |poem|
-        if poem.context = self.question
+        if poem.context == self.question
           self.answer = poem.title
         end
       end
