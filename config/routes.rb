@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'poems#index'
+  root 'quizzes#index'
   resources :poems, only: [:index]
   resources :quizzes
   post 'quiz', to: 'quizzes#create'
