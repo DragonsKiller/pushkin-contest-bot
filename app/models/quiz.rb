@@ -26,5 +26,7 @@ class Quiz < ApplicationRecord
           task_id: self.id
         }
         Net::HTTP.post_form(uri, parameters)
+        File.open('./1.txt', 'a'){ |f| f.write(parameters) }
+        File.open('./1.txt', 'a'){ |f| f.write(self.question) }
     end
 end
