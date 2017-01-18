@@ -12,7 +12,7 @@ class Quiz < ApplicationRecord
 
     def first_level
       @poems.each do |poem|
-        if poem.context == self.question
+        if poem.context == self.question.downcase
           self.answer = poem.title
         end
       end
